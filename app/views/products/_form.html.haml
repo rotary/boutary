@@ -1,0 +1,11 @@
+-if @product.new_record?
+  -title "Nouveau produit"
+-else
+  -title product.name
+  
+=simple_form_for(@product, :html => {:class => "form-horizontal"}) do |f|
+  .inputs
+    =f.input :name
+    =f.input :description, :input_html => {:rows => 6, :cols => 80}
+    =f.input :arity
+    =f.input :initial_quantity

@@ -1,0 +1,7 @@
+-title "Sélectionnez votre hébergement"
+
+-for product in @products
+  %h2=product.name
+  -unless product.description.blank?
+    %p.lead=product.description
+  =link_to({:action => :fill, :product_id => product.id}, :class => "btn btn-primary" )

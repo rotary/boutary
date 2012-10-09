@@ -1,0 +1,14 @@
+-title "Produits"
+
+.btn-group
+  =link_to({:action => :new}, :class => "btn") do
+    %i.icon-plus
+
+-for product in @products
+  %h2=product.name
+  %p.lead=product.description
+  .btn-group
+    =link_to({:action => :edit}, :class => "btn") do
+      %i.icon-pencil
+    =link_to({:action => :destroy}, :method => :delete, "data-confirm" => "Sûr(e) ?", :class => "btn") do
+      %i.icon-remove

@@ -1,0 +1,10 @@
+-title "Authentifiez-vous"
+
+
+=form_tag({:action => :authenticate}, {:class => "form-horizontal"}) do
+  .control-group
+    %label.control-label{:for => :password} Mot de vérification
+    .controls
+      =password_field_tag(:password, nil, :id => :password)
+  .form-actions
+    =button_tag("Suivant", :type => :submit, :class => "btn btn-primary")

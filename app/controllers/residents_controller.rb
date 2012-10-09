@@ -1,0 +1,2 @@
+class ResidentsController < AdminController
+end
