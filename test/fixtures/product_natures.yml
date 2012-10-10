@@ -1,13 +1,13 @@
 # == Schema Information
 #
-# Table name: products
+# Table name: product_natures
 #
-#  id          :integer          not null, primary key
-#  nature_id   :integer          not null
-#  name        :string(255)      not null
-#  description :text
-#  arity       :integer
-#  amount      :decimal(16, 2)
+#  id               :integer          not null, primary key
+#  name             :string(255)      not null
+#  description      :text
+#  payment_sequence :string(255)
+#  initial_quantity :integer
+#  current_quantity :integer
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html

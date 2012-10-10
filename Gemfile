@@ -13,7 +13,7 @@ gem 'recaptcha'
 gem 'simple_form'
 gem 'i18n-complements'
 gem 'rails-i18n'
-
+gem 'annotate'
 
 # Gems used only for assets and not required
 # in production environments by default.

@@ -1,0 +1,18 @@
+-title "Types de produit"
+
+.btn-toolbar
+  .btn-group
+    =link_to(admin_url, :class => "btn") do
+      %i.icon-arrow-left
+    =link_to({:action => :new}, :class => "btn") do
+      %i.icon-plus
+
+-for nature in @product_natures
+  .well
+    .btn-group.pull-right
+      =link_to(edit_product_nature_url(nature), :class => "btn") do
+        %i.icon-pencil
+      =link_to(product_nature_url(nature), :method => :delete, "data-confirm" => "Sûr(e) ?", :class => "btn") do
+        %i.icon-remove
+    %h2=nature.name
+    %p.lead=nature.description

@@ -1,14 +1,19 @@
 -title "Produits"
 
-.btn-group
-  =link_to({:action => :new}, :class => "btn") do
-    %i.icon-plus
+.btn-toolbar
+  .btn-group
+    =link_to(admin_url, :class => "btn") do
+      %i.icon-arrow-left
+    =link_to({:action => :new}, :class => "btn") do
+      %i.icon-plus
 
 -for product in @products
-  %h2=product.name
-  %p.lead=product.description
-  .btn-group
-    =link_to({:action => :edit}, :class => "btn") do
-      %i.icon-pencil
-    =link_to({:action => :destroy}, :method => :delete, "data-confirm" => "Sûr(e) ?", :class => "btn") do
-      %i.icon-remove
+  .well
+    .btn-group.pull-right
+      =link_to(edit_product_url(product), :class => "btn") do
+        %i.icon-pencil
+      =link_to(product_url(product), :method => :delete, "data-confirm" => "Sûr(e) ?", :class => "btn") do
+        %i.icon-remove
+    %h2=product.name
+    %p.lead=product.description
+    %p="Montant : #{product.amount.l(:currency => :EUR)}"
