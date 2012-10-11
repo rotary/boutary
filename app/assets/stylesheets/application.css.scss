@@ -17,3 +17,7 @@
 @import "bootstrap";
 @import "bootstrap-responsive";
 
+textarea { 
+  width: 90%;
+  resize: vertical;
+}

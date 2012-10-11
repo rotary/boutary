@@ -1,0 +1,25 @@
+-title "Informations sur les résidents"
+
+.well
+  %h2=@product.name
+  %p=@product.nature.description
+  %p=@product.description
+
+=form_tag({:action => :pay}, {:class => "form-horizontal" }) do
+  =hidden_field_tag(:product_id, @product.id)
+  -@residents.each_with_index do |resident, index|
+    -@resident = resident
+    =simple_fields_for "residents[#{index}]", @resident do |f|
+      %legend= "Résident n°#{index+1}"
+      =f.input :first_name
+      =f.input :last_name
+      =f.input :birth_on
+      =f.input :club
+      =f.input :address, :input_html => { :rows => 4 }
+      =f.input :phone
+      =f.input :email
+      =f.input :identity_number
+      =f.input :identity_valid_until
+  .form-actions
+    =submit_tag("labels.pay".t, :disable_with=>"labels.please_wait".t, :class => "btn btn-primary")
+    =link_to("labels.cancel".t, :back, :class => "btn")

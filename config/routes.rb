@@ -8,5 +8,6 @@ Boutary::Application.routes.draw do
   post :authenticate, :controller => :store
   get :select_product, :controller => :store
   get :fill, :controller => :store
+  post :pay, :controller => :store
   root :to => "store#index"
 end

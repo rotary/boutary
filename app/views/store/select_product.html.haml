@@ -4,5 +4,6 @@
   .well
     %h2=product.name
     -unless product.description.blank?
+      %p.lead=product.nature.description
       %p.lead=product.description
     =link_to("Acheter", {:action => :fill, :product_id => product.id}, :class => "btn btn-primary" )

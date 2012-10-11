@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class StoreController < ApplicationController
 
   def index
@@ -20,5 +21,78 @@ class StoreController < ApplicationController
     end
     @products = Product.all
   end
+
+  def fill
+    @product = Product.find(params[:product_id])
+    session[:product_id] = @product.id
+    @residents = @product.resident_number.times.collect{ Resident.new }
+  end
+
+  def pay
+    @product = Product.find(params[:product_id])
+    @sale = Sale.create!(:product_id => @product.id)
+    for number, resident in params[:residents]
+      @sale.residents.create!(resident)
+    end
+    # Paybox...
+    redirect_to "https://boutique.rotary1690.org/site/modulev3.cgi?" + {
+      :PBX_MODE => 1, 
+      :PBX_SITE => "0840363", 
+      :PBX_RANG => "01", 
+      :PBX_IDENTIFIANT => "315034123", 
+      :PBX_TOTAL => (@sale.amount*100).to_i, 
+      :PBX_DEVISE => 978, 
+      :PBX_CMD => @sale.number, 
+      :PBX_PORTEUR => @sale.residents.first.email, 
+      :PBX_RETOUR => Sale.payment_infos.collect{|k,v| "#{v}:#{v}"}.join(";"),
+      :PBX_LANGUE => "FRA", 
+      :PBX_EFFECTUE => finish_sale_url(@sale), 
+      :PBX_REFUSE => refuse_sale_url(@sale), 
+      :PBX_ANNULE => cancel_sale_url(@sale)
+    }.collect{|k,v| "#{k}=#{URI.encode(v.to_s)}"}.join('&')
+  end
+
+  def cancel
+    flash[:warning] = "La transaction a été annulée."
+    sale = Sale.find_by_number(params[:id])
+    redirect_to sale_url(sale)
+  end
+
+  def refuse
+    flash[:error] = "La transaction a été refusée."
+    sale = Sale.find_by_number(params[:id])
+    redirect_to sale_url(sale)
+  end
+
+  def finish
+    validate_payment
+    sale = Sale.find_by_number(params[:id])
+    redirect_to root_url
+  end
+
+  def check
+    validate_payment(true)
+    render :text=>""
+  end
+
+  protected
+
+  def validate_payment(no_redirect = false)
+    unless @sale = Sale.find_by_number(params["R"])
+      flash[:error] = "Une erreur est survenue lors de la précédente opération. Veuillez réeessayer."
+      redirect_to root_url unless no_redirect
+      return 
+    end
+    @sale.payment_infos = params.to_yaml
+    @sale.save
+    if @sale.error_code == "00000"
+      flash[:notice] = "La transaction a été validée."
+      @sale.state = "paid"
+      @sale.save
+    else
+      flash[:error] = "Une erreur s'est produite"
+    end
+  end
+
 
 end

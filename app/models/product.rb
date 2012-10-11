@@ -14,4 +14,6 @@ class Product < ActiveRecord::Base
   belongs_to :nature, :class_name => "ProductNature"
   attr_accessible :nature_id, :name, :description, :arity, :amount
   default_scope order(:name)
+  alias_attribute :resident_number, :arity
+
 end

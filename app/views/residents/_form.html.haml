@@ -1,0 +1,11 @@
+=simple_fields_for(@resident, :html => {:class => "form-horizontal"}) do |f|
+  =f.input :first_name
+  =f.input :last_name
+  =f.input :birth_on
+  =f.input :club
+  =f.input :address, :input_html => { :rows => 4 }
+  =f.input :phone
+  =f.input :email
+  =f.input :identity_number
+  =f.input :identity_valid_until
+
