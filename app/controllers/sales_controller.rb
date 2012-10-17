@@ -1,7 +1,9 @@
 class SalesController < AdminController
 
+  list
+
   def index
-    @sales = Sale.all
+    @sales = Sale.paginate(:page => params[:page], :per_page => (params[:per_page]||50))
   end
 
   def show

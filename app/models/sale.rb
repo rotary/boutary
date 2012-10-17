@@ -76,10 +76,13 @@ class Sale < ActiveRecord::Base
     "00198" => "serveur inaccessible (positionné par le serveur).",
     "00199" => "incident domaine initiateur."
   }
-  attr_accessible :product_id
+  attr_accessible :product_id, :residents_attributes
   belongs_to :product
   has_many :residents, :order => :id
   validates_presence_of :amount, :state, :number, :product
+  accepts_nested_attributes_for :residents, :allow_destroy => true
+
+  default_scope order("number DESC")
 
   def self.payment_infos
     return {:amount => "M", :number => "R", :authorization_number => "A", :sequential_number => "T", :payment_type => "P", :card_type => "C", :transaction_number => "S", :country => "Y", :error_code => "E", :card_expired_on => "D", :payer_country => "I", :bin6 => "N", :signature => "K"}
@@ -92,5 +95,9 @@ class Sale < ActiveRecord::Base
     end
     self.number = Time.now.to_i.to_s(36) + rand.to_s[2..-1].to_i.to_s(36).rjust(4, '0')[0..3]
     self.state = "estimate"
+  end
+
+  def to_param
+    self.number
   end
 end

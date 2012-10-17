@@ -14,5 +14,20 @@
         %i.icon-pencil
       =link_to(product_nature_url(nature), :method => :delete, "data-confirm" => "Sûr(e) ?", :class => "btn") do
         %i.icon-remove
-    %h2=nature.name
-    %p.lead=nature.description
+    %h3=nature.name
+    -unless nature.description.blank?
+      %p.lead=nature.description
+    -if nature.products.count > 0
+      -for product in nature.products
+        .product
+          .btn-group.pull-right
+            =link_to(edit_product_url(product), :class => "btn") do
+              %i.icon-pencil
+            =link_to(product_url(product), :method => :delete, "data-confirm" => "Sûr(e) ?", :class => "btn") do
+              %i.icon-remove
+          %h4=product.name
+          -unless product.description.blank?
+            %p.lead=product.description
+          %p="Montant : #{product.amount.l(:currency => :EUR)}"
+    =link_to("Ajouter un nouveau produit &laquo; #{nature.name} &raquo;".html_safe, new_product_url(:nature_id => nature.id), :class => "btn btn-block")
+

@@ -1,0 +1,9 @@
+%h4=product.name
+-unless product.nature.description.blank?
+  %p.lead=product.nature.description
+-unless product.description.blank?
+  %p.lead=product.description
+%p.lead
+  ="Montant : "
+  %strong=product.amount.l(:currency => :EUR)
+

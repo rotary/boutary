@@ -14,6 +14,9 @@ gem 'simple_form'
 gem 'i18n-complements'
 gem 'rails-i18n'
 gem 'annotate'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
+gem 'active-list'
 
 # Gems used only for assets and not required
 # in production environments by default.

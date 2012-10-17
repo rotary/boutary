@@ -14,10 +14,39 @@
 
 
 @import "compass/reset";
+@import "compass/css3";
 @import "bootstrap";
 @import "bootstrap-responsive";
+@import "active-list";
 
 textarea { 
   width: 90%;
   resize: vertical;
+}
+
+
+body { 
+  background: #7BF image-url("bg.png") no-repeat top right; background-size: 100%; 
+  #page { 
+    .container { 
+      .wrapper { 
+        padding: 20px;
+        margin: 20px;
+        @include box-shadow(0 0 20px rgba(#000, 0.2));
+        @include border-radius(5px);
+        background: rgba(#FFF, 0.6);
+      }
+     
+    }
+  }
+}
+
+.product { 
+  margin-left: 40px;
+}
+
+h1 { 
+  color: #ffd93a;
+  span.city { color: #0b3d92; }
+  span.name { color: #0b3d92 }
 }

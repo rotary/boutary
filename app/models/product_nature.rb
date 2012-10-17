@@ -12,4 +12,5 @@
 
 class ProductNature < ActiveRecord::Base
   attr_accessible :name, :description, :payment_sequence, :initial_quantity
+  has_many :products, :foreign_key => :nature_id
 end

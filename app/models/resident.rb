@@ -18,4 +18,5 @@
 class Resident < ActiveRecord::Base
   attr_accessible :last_name, :first_name, :birth_on, :club, :address, :phone, :email, :identity_number, :identity_valid_until
   belongs_to :sale
+  validates_presence_of :last_name, :first_name, :email, :club, :address, :identity_number, :identity_valid_until
 end

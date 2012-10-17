@@ -23,32 +23,33 @@ class StoreController < ApplicationController
   end
 
   def fill
-    @product = Product.find(params[:product_id])
-    session[:product_id] = @product.id
-    @residents = @product.resident_number.times.collect{ Resident.new }
+    product = Product.find(params[:product_id])
+    @sale = Sale.new(:product_id => product.id)
+    @sale.product.resident_number.times { @sale.residents.build }
   end
 
   def pay
-    @product = Product.find(params[:product_id])
-    @sale = Sale.create!(:product_id => @product.id)
-    for number, resident in params[:residents]
-      @sale.residents.create!(resident)
+    @sale = Sale.new(params[:sale])
+    unless @sale.save
+      render :action => :fill
+      return
     end
     # Paybox...
-    redirect_to "https://boutique.rotary1690.org/site/modulev3.cgi?" + {
+    # redirect_to "https://boutique.rotary1690.org/site/modulev3.cgi?" + {
+    redirect_to "https://www.rotex1690.org/site/modulev3.cgi?" + {
       :PBX_MODE => 1, 
       :PBX_SITE => "0840363", 
       :PBX_RANG => "01", 
-      :PBX_IDENTIFIANT => "315034123", 
       :PBX_TOTAL => (@sale.amount*100).to_i, 
       :PBX_DEVISE => 978, 
       :PBX_CMD => @sale.number, 
       :PBX_PORTEUR => @sale.residents.first.email, 
       :PBX_RETOUR => Sale.payment_infos.collect{|k,v| "#{v}:#{v}"}.join(";"),
+      :PBX_IDENTIFIANT => "315034123", 
       :PBX_LANGUE => "FRA", 
-      :PBX_EFFECTUE => finish_sale_url(@sale), 
-      :PBX_REFUSE => refuse_sale_url(@sale), 
-      :PBX_ANNULE => cancel_sale_url(@sale)
+      :PBX_EFFECTUE => finish_url(@sale), 
+      :PBX_REFUSE => refuse_url(@sale), 
+      :PBX_ANNULE => cancel_url(@sale)
     }.collect{|k,v| "#{k}=#{URI.encode(v.to_s)}"}.join('&')
   end
 

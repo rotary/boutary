@@ -1,16 +1,16 @@
 -title "Informations sur les résidents"
 
-.well
-  %h2=@product.name
-  %p=@product.nature.description
-  %p=@product.description
+-product = @sale.product
+
+.well=render :partial => "store/product", :object => product
 
 =form_tag({:action => :pay}, {:class => "form-horizontal" }) do
-  =hidden_field_tag(:product_id, @product.id)
-  -@residents.each_with_index do |resident, index|
-    -@resident = resident
-    =simple_fields_for "residents[#{index}]", @resident do |f|
-      %legend= "Résident n°#{index+1}"
+  =simple_fields_for @sale do |s|
+    =s.association :product, :as => :hidden
+    -#=s.input :email
+    -@index = 0
+    =s.simple_fields_for :residents do |f|
+      %legend= "Résident n°#{@index += 1}"
       =f.input :first_name
       =f.input :last_name
       =f.input :birth_on

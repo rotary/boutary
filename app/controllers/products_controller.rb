@@ -15,7 +15,7 @@ class ProductsController < AdminController
 
   
   def new
-    @product = Product.new
+    @product = Product.new(:nature_id => params[:nature_id])
     respond_to do |format|
       format.html { render_restfully_form(:multipart => true) }
       format.json { render :json => @product }

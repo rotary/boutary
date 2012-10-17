@@ -6,7 +6,13 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body
-    #page.container
-      %h1=yield :title
-      =yield
+    #page
+      .container
+        .wrapper
+          %h1
+            %span.city="Lisbonne 2013"
+            =" &mdash; ".html_safe
+            %span.name="104<sup>ème</sup> Convention Rotary International".html_safe
+          %h2=yield :title
+          =yield
 
