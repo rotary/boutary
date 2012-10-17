@@ -13,7 +13,7 @@
       %legend= "Résident n°#{@index += 1}"
       =f.input :first_name
       =f.input :last_name
-      =f.input :birth_on
+      =f.input :birth_on, :start_year => Date.today.year - 100
       =f.input :club
       =f.input :address, :input_html => { :rows => 4 }
       =f.input :phone

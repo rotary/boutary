@@ -1,4 +1,6 @@
 fr:
+  attributes:
+    first_name: Prénom
   labels:
     pay: Payer
     cancel: Annuler
