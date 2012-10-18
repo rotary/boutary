@@ -1,6 +1,6 @@
 # Be sure to restart your server when you modify this file.
 
-Boutary::Application.config.session_store :cookie_store, key: '_boutary_session'
+Boutary::Application.config.session_store :cookie_store, :key => '_boutary_session'
 
 # Use the database for sessions instead of the cookie-based default,
 # which shouldn't be used to store highly confidential information
