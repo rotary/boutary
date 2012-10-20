@@ -15,5 +15,6 @@ class Product < ActiveRecord::Base
   attr_accessible :nature_id, :name, :description, :arity, :amount
   default_scope order(:name)
   alias_attribute :resident_number, :arity
+  validates_presence_of :arity, :amount
 
 end
