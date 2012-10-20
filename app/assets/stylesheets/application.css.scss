@@ -50,3 +50,14 @@ h1 {
   span.city { color: #0b3d92; }
   span.name { color: #0b3d92 }
 }
+
+table { 
+  .buy, .amount { 
+    vertical-align: middle;
+  }
+  .amount { 
+    text-align: right;
+    font-weight: bold;
+    font-size: 17px;
+  }
+}

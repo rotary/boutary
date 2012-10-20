@@ -16,7 +16,7 @@
         %i.icon-remove
     %h3=nature.name
     -unless nature.description.blank?
-      %p.lead=nature.description
+      %p=nature.description
     -if nature.products.count > 0
       -for product in nature.products
         .product
@@ -27,7 +27,7 @@
               %i.icon-remove
           %h4=product.name
           -unless product.description.blank?
-            %p.lead=product.description
+            %p=product.description
           %p="Montant : #{product.amount.l(:currency => :EUR)}"
     =link_to("Ajouter un nouveau produit &laquo; #{nature.name} &raquo;".html_safe, new_product_url(:nature_id => nature.id), :class => "btn btn-block")
 

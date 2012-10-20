@@ -1,6 +1,12 @@
 -title "Sélectionnez votre hébergement"
 
--for product in @products
-  .well
-    =render :partial => "store/product", :object => product
-    =link_to("Acheter", {:action => :fill, :product_id => product.id}, :class => "btn btn-primary" )
+-for nature in @product_natures
+  %h3=nature.name
+  %table.table.table-striped.table-bordered
+    -for product in nature.products
+      %tr
+        %td
+          %h4=product.name
+          =product.description
+        %td.amount=product.amount.l(:currency => :EUR)
+        %td.buy=link_to("Acheter", {:action => :fill, :product_id => product.id}, :class => "btn btn-block btn-primary" )

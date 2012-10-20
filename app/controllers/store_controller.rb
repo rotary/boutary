@@ -19,7 +19,7 @@ class StoreController < ApplicationController
       redirect_to :action => :index
       return
     end
-    @products = Product.all
+    @product_natures = ProductNature.all
   end
 
   def fill

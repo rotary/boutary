@@ -27,7 +27,7 @@ class ProductsController < AdminController
     @product = Product.new(params[:product])
     respond_to do |format|
       if @product.save
-        format.html { redirect_to (params[:redirect] || products_url) }
+        format.html { redirect_to (params[:redirect] || product_natures_url) }
         format.json { render json => @product, :status => :created, :location => @product }
       else
         format.html { render_restfully_form(:multipart => true) }
@@ -47,7 +47,7 @@ class ProductsController < AdminController
     @product = Product.find(params[:id])
     respond_to do |format|
       if @product.update_attributes(params[:product])
-        format.html { redirect_to (params[:redirect] || products_url) }
+        format.html { redirect_to (params[:redirect] || product_natures_url) }
         format.json { head :no_content }
       else
         format.html { render_restfully_form(:multipart => true) }
@@ -60,7 +60,7 @@ class ProductsController < AdminController
     @product = Product.find(params[:id])
     @product.destroy
     respond_to do |format|
-      format.html { redirect_to (params[:redirect] || products_url) }
+      format.html { redirect_to (params[:redirect] || product_natures_url) }
       format.json { head :no_content }
     end
   end
